@@ -1,2 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using AdventOfCode2021.Code;
+using AdventOfCode2021.inputs;
+
 Console.WriteLine("Hello, World!");
+Console.WriteLine(RadarReader.HowManyIncreases(Day1Input.Radar));
