@@ -10,13 +10,8 @@ namespace AdventOfCode2021.Code
     {
         public static int GetPowerConsumption(string input)
         {
-            var lines = input.Split("\n");
-            List<List<char>> splitLines = new();
-            foreach (var line in lines)
-            {
-                splitLines.Add(line.Trim().ToCharArray().ToList());
-            }
-            var charnum = splitLines.First().Count();
+            List<List<char>> splitLines = SplitInput(input);
+            var charnum = splitLines.First().Count;
             var gammaString = "";
             var epsilonString = "";
             for (int i = 0; i < charnum; i++)
@@ -35,6 +30,18 @@ namespace AdventOfCode2021.Code
             var gamma = Convert.ToInt32(gammaString, 2);
             var epsilon = Convert.ToInt32(epsilonString, 2);
             return gamma * epsilon;
+        }
+
+        private static List<List<char>> SplitInput(string input)
+        {
+            var lines = input.Split("\n");
+            List<List<char>> splitLines = new();
+            foreach (var line in lines)
+            {
+                splitLines.Add(line.Trim().ToCharArray().ToList());
+            }
+
+            return splitLines;
         }
 
         private static bool FindCommonBit(List<List<char>> splitLines, int i)
