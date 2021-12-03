@@ -8,3 +8,5 @@ Console.WriteLine(SubmarineNavigation.NavigateSub(Day2.NavigationInstructions));
 Console.WriteLine(SubmarineNavigation.AimSub(Day2.NavigationInstructions));
 Console.WriteLine("Power consumption is:");
 Console.WriteLine(PowerConsumption.GetPowerConsumption(Inputs.Day3));
+Console.WriteLine("Life support Rating is:");
+Console.WriteLine(PowerConsumption.GetLifeSupportRating(Inputs.Day3));
