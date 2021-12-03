@@ -15,12 +15,13 @@ namespace AdventOfCode2020.Services
             while (entries.Count>1)
             {
                 var entry = entries.Take(1).First();
+                var param1 = entries.Skip(1).Take(1).First();
                 entries.Remove(entry);
-                foreach (var param in entries)
+                foreach (var param2 in entries)
                 {
-                    if (entry + param == 2020)
+                    if (entry + param1 + param2 == 2020)
                     {
-                        return entry * param;
+                        return entry * param1 * param2;
                     }
                 }
             }
