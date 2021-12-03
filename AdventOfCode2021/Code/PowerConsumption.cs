@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2021.Code
 {
-    internal static class PowerConsumption
+    public static class PowerConsumption
     {
         public static int GetLifeSupportRating(string input)
         {
             List<List<char>> splitLines = SplitInput(input);
-            return FindOxygenRating(splitLines) * FindCo2Rating(splitLines);
+            var oxygenRating = FindOxygenRating(splitLines);
+            var co2Rating = FindCo2Rating(splitLines);
+            return oxygenRating * co2Rating;
         }
 
         private static int FindOxygenRating(List<List<char>> splitLines)
@@ -25,7 +27,8 @@ namespace AdventOfCode2021.Code
                 {
                     break;
                 }
-                oxyLines = oxyLines.Where(l => l[i] == GetCommonBit(oxyLines, i, true)).ToList();
+                var common = GetCommonBit(oxyLines, i, true);
+                oxyLines = oxyLines.Where(l => l[i] == common).ToList();
             }
             string bin = new string(oxyLines.First().ToArray());
             return Convert.ToInt32(bin,2);
@@ -42,7 +45,9 @@ namespace AdventOfCode2021.Code
                 {
                     break;
                 }
-                co2Lines = co2Lines.Where(l => l[i] == GetCommonBit(co2Lines, i, false)).ToList();
+                var common = GetCommonBit(co2Lines, i, false);
+
+                co2Lines = co2Lines.Where(l => l[i] == common).ToList();
             }
             string bin = new string(co2Lines.First().ToArray());
             return Convert.ToInt32(bin, 2);
@@ -168,13 +173,13 @@ namespace AdventOfCode2021.Code
                 }
             }
 
-            if (ones <= zeroes)
+            if (ones < zeroes)
             {
-                return '0';
+                return '1';
             }
             else
             {
-                return '1';
+                return '0';
             }
         }
     }
