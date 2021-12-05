@@ -6,23 +6,22 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2020.Services
 {
-    internal static class ExpenseReportService
+    public static class ExpenseReportService
     {
         public static int Get2020Product(string input)
         {
             List<int> entries = ParseInput(input);
-            var count = entries.Count;
-            while (entries.Count>1)
+            return entries.Where(x => 0 < entries.FirstOrDefault(y => entries.Contains(2020 - x - y)))
+                .Aggregate(1, (a, b) => a * b);
+            while (entries.Count > 1)
             {
                 var entry = entries.Take(1).First();
                 var param1 = entries.Skip(1).Take(1).First();
+                var sum = entry + param1;
                 entries.Remove(entry);
-                foreach (var param2 in entries)
+                if (entries.Contains(2020 - sum))
                 {
-                    if (entry + param1 + param2 == 2020)
-                    {
-                        return entry * param1 * param2;
-                    }
+                    return entry * param1 * (2020 - sum);
                 }
             }
             return -1;

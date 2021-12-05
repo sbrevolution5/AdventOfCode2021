@@ -10,3 +10,4 @@ Console.WriteLine("Power consumption is:");
 Console.WriteLine(PowerConsumption.GetPowerConsumption(Inputs.Day3));
 Console.WriteLine("Life support Rating is:");
 Console.WriteLine(PowerConsumption.GetLifeSupportRating(Inputs.Day3));
+Console.WriteLine(Bingo.GetBingoWinnerScore(Inputs.Day4));
