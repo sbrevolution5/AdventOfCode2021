@@ -95,7 +95,7 @@ namespace AdventOfCode2021.Code
                 //ns
                 if (line.Start.y > line.End.y)
                 {
-                    while (y> line.End.y)
+                    while (y >= line.End.y)
                     {
                         grid[x, y]++;
                         x--;
@@ -105,7 +105,7 @@ namespace AdventOfCode2021.Code
                 //sn
                 else
                 {
-                    while (y<line.End.y)
+                    while (y <= line.End.y)
                     {
                         grid[x, y]++;
                         x--;
@@ -119,7 +119,7 @@ namespace AdventOfCode2021.Code
                 //ns
                 if (line.Start.y > line.End.y)
                 {
-                    while (y > line.End.y)
+                    while (y >= line.End.y)
                     {
                         grid[x, y]++;
                         x++;
@@ -129,7 +129,7 @@ namespace AdventOfCode2021.Code
                 //sn
                 else
                 {
-                    while (y < line.End.y)
+                    while (y <= line.End.y)
                     {
                         grid[x, y]++;
                         x++;
