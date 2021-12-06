@@ -12,4 +12,6 @@ Console.WriteLine("Life support Rating is:");
 Console.WriteLine(PowerConsumption.GetLifeSupportRating(Inputs.Day3));
 Console.WriteLine(Bingo.GetBingoWinnerScore(Inputs.Day4));
 Console.WriteLine(Bingo.GetBingoLoserScore(Inputs.Day4));
+Console.WriteLine("Hydrothermal Overlap number is:");
+Console.WriteLine(HydrothermalVents.CountOverlaps(Inputs.Day5));
 Console.WriteLine(Lanternfish.HowManyFishColumns(Inputs.Day6, 256));
