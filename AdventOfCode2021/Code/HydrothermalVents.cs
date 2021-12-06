@@ -12,6 +12,7 @@ namespace AdventOfCode2021.Code
         {
 
             Grid grid = ParseInput(input);
+            throw new NotImplementedException();
         }
 
         private static Grid ParseInput(string input)
