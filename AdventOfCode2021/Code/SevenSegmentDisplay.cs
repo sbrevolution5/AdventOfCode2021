@@ -19,6 +19,41 @@ namespace AdventOfCode2021.Code
             }
             return easy;
         }
+        public static bool DoesEachLineHaveAll4EasyValues(string input)
+        {
+            var signalDisplays = ParseInput(input);
+            FindAll1478(signalDisplays);
+            foreach (var display in signalDisplays)
+            {
+                if (!DoesHaveEasy(display))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static bool DoesHaveEasy(Display display)
+        {
+            if (!display.AllWires.Where(w => w.NumberValue == 1).Any())
+            {
+                return false;
+            }
+            if (!display.AllWires.Where(w => w.NumberValue == 4).Any())
+            {
+                return false;
+            }
+            if (!display.AllWires.Where(w => w.NumberValue == 7).Any())
+            {
+                return false;
+            }
+            if (!display.AllWires.Where(w => w.NumberValue == 8).Any())
+            {
+                return false;
+            }
+            return true;
+        }
+
         public static int GetSumOfOutputs(string input)
         {
             var signalDisplays = ParseInput(input);
@@ -56,12 +91,64 @@ namespace AdventOfCode2021.Code
                 {
                     if (display.HasAll6sAnd1)
                     {
+                        FindBottomRight(display);
+                        if (display.Screen.RightT is null)
+                        {
 
+                            FindTopRight(display);
+                        }
                     }
-
                 }
 
             }
+        }
+
+        private static void FindTopRight(Display display)
+        {
+            var one = display.AllWires.First(w => w.NumberValue == 1).StringValue.ToCharArray();
+            foreach (var c in one)
+            {
+                if (c != display.Screen.RightB)
+                {
+                    display.Screen.RightT = c;
+                    return;
+                }
+            }
+            throw new InvalidOperationException("Top right not found because bottom right wasn't already found");
+        }
+
+        private static void FindBottomRight(Display display)
+        {
+            var candidates = "abcdefg".ToCharArray();
+            var possible = new List<char>();
+            var sixes = display.AllWires.Where(w => w.StringValue.Length == 6)
+                .DistinctBy(w => w.StringValue)
+                .Select(w => w.StringValue.ToCharArray());
+            foreach (var possibleChar in candidates)
+            {
+                var inAll = true;
+                foreach (var six in sixes)
+                {
+                    if (!six.Contains(possibleChar))
+                    {
+                        inAll = false;
+                    }
+                }
+                if (inAll == true)
+                {
+                    possible.Add(possibleChar);
+                }
+            }
+            var one = display.AllWires.First(w => w.NumberValue == 1).StringValue.ToCharArray();
+            foreach (var possibleChar in possible)
+            {
+                if (one.Contains(possibleChar))
+                {
+                    display.Screen.RightB = possibleChar;
+                    return;
+                }
+            }
+            throw new InvalidOperationException("Tried to find bottom right with 6 character and confirmed 1, but was unsuccessful");
         }
 
         private static void FindTop(Display display)
@@ -174,9 +261,9 @@ namespace AdventOfCode2021.Code
         {
             get
             {
-                if (AllWires.Where(w => w.StringValue.Length == 6).DistinctBy(w=>w.StringValue).Count() == 3)
+                if (AllWires.Where(w => w.StringValue.Length == 6).DistinctBy(w => w.StringValue).Count() == 3)
                 {
-                    if (AllWires.Where(w=>w.NumberValue == 1).Any())
+                    if (AllWires.Where(w => w.NumberValue == 1).Any())
                     {
                         return true;
                     }
