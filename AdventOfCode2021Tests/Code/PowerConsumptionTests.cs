@@ -34,10 +34,5 @@ namespace AdventOfCode2021.Code.Tests
             res.Should().Be(230);
         }
 
-        [TestMethod()]
-        public void GetPowerConsumptionTest()
-        {
-            Assert.Fail();
-        }
     }
 }

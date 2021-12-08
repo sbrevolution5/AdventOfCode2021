@@ -44,6 +44,12 @@ egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce";
             var res = SevenSegmentDisplay.GetSumOfOutputs(input);
             res.Should().Be(61229);
+        }[TestMethod()]
+        public void GetSumOfSimpleOutputsTest()
+        {
+            var input = @"acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf";
+            var res = SevenSegmentDisplay.GetSumOfOutputs(input);
+            res.Should().Be(5353);
         }
     }
 }
