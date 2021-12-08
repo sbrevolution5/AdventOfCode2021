@@ -102,11 +102,11 @@ namespace AdventOfCode2021.Code
                 {
                     if (display.Screen.RightT is not null)
                     {
-                        FindNumbersOf6(display);
                         FindNumbersOf5(display);
                         FindNumbersOf2(display);
                         FindNumbersOf3(display);
                         FindLeftSide(display);
+                        FindNumbersOf6(display);
                         FindZeroAndMiddle(display);
                         FindNumbersOf9(display);
                         FindBottom(display);
@@ -174,9 +174,12 @@ namespace AdventOfCode2021.Code
                 throw new ArgumentNullException("Tried to find 0 without Left Side");
             }
             var sixes = display.AllWires.Where(w => w.StringValue.Length == 6);
+            var leftSide = new char[2];
+            leftSide[0] = display.Screen.LeftB.Value;
+            leftSide[1] = display.Screen.LeftT.Value;
             foreach (var six in sixes)
             {
-                if (!six.NumberValue.HasValue)
+                if (six.StringValue.ToCharArray().Contains(leftSide[0]) && six.StringValue.ToCharArray().Contains(leftSide[1]))
                 {
                     six.NumberValue = 0;
                 }
@@ -260,13 +263,13 @@ namespace AdventOfCode2021.Code
 
         private static void FindNumbersOf6(Display display)
         {
+            if (display.Screen.RightT is null)
+            {
+                throw new ArgumentNullException("Tried to find 6 without RightT");
+            }
             var sixes = display.AllWires.Where(w => w.StringValue.Length == 6);
             foreach (var six in sixes)
             {
-                if (display.Screen.RightT is null)
-                {
-                    throw new ArgumentNullException("Tried to find 6 without RightT");
-                }
                 if (!six.StringValue.ToCharArray().Contains(display.Screen.RightT.Value))
                 {
                     six.NumberValue = 6;
@@ -275,13 +278,13 @@ namespace AdventOfCode2021.Code
         }
         private static void FindNumbersOf5(Display display)
         {
+            if (display.Screen.RightT is null)
+            {
+                throw new ArgumentNullException("Tried to find 5 without RightT");
+            }
             var fives = display.AllWires.Where(w => w.StringValue.Length == 5);
             foreach (var five in fives)
             {
-                if (display.Screen.RightT is null)
-                {
-                    throw new ArgumentNullException("Tried to find 5 without RightT");
-                }
                 if (!five.StringValue.ToCharArray().Contains(display.Screen.RightT.Value))
                 {
                     five.NumberValue = 5;
