@@ -22,15 +22,31 @@ namespace AdventOfCode2021.Code
         public static int GetSumOfOutputs(string input)
         {
             var signalDisplays = ParseInput(input);
-            FindOutput1478(signalDisplays);
+            FindAll1478(signalDisplays);
+
 
         }
 
-        private static void FindOutput1478(List<Display> displays)
+        private static void FindAll1478(List<Display> signalDisplays)
+        {
+            FindOutput1478(signalDisplays, true);
+            FindOutput1478(signalDisplays, false);
+        }
+
+        private static void FindOutput1478(List<Display> displays, bool isOutput = true)
         {
             foreach (var display in displays)
             {
-                foreach (var wire in display.OutputWires)
+                var wireList = new List<Wire>();
+                if (isOutput)
+                {
+                    wireList = display.OutputWires;
+                }
+                else
+                {
+                    wireList = display.InputWires;
+                }
+                foreach (var wire in wireList)
                 {
                     if (wire.StringValue.Length == 3)
                     {
@@ -92,6 +108,20 @@ namespace AdventOfCode2021.Code
     {
         public List<Wire> InputWires { get; set; } = new();
         public List<Wire> OutputWires { get; set; } = new();
+        public Screen Screen { get; set; } = new();
+    }
+
+    public class Screen
+    {
+        public char? Top { get; set; }
+        public char? LeftT { get; set; }
+        public char? LeftB { get; set; }
+        public char? RightT { get; set; }
+        public char? RightB { get; set; }
+        public char? Bot { get; set; }
+        public char? Mid { get; set; }
+
+        
     }
 
     public class Wire
