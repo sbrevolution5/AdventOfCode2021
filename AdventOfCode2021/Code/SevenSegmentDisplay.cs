@@ -76,7 +76,7 @@ namespace AdventOfCode2021.Code
 
         private static void FindDisplayNodes(Display display)
         {
-            while (!display.Screen.Done)
+            while (!display.Screen.Done || display.OutputWires.Where(w => w.NumberValue is null).Any())
             {
                 if (display.Screen.Top is null)
                 {
@@ -86,20 +86,181 @@ namespace AdventOfCode2021.Code
                         FindTop(display);
                     }
                 }
-
-                if (display.Screen.RightB is null)
+                else if (display.Screen.RightB is null)
                 {
                     if (display.HasAll6sAnd1)
                     {
                         FindBottomRight(display);
                         if (display.Screen.RightT is null)
                         {
-
                             FindTopRight(display);
                         }
                     }
                 }
+                else if (display.Screen.LeftB is null)
+                {
+                    if (display.Screen.RightT is not null)
+                    {
+                        FindNumbersOf6(display);
+                        FindNumbersOf5(display);
+                        FindNumbersOf2(display);
+                        FindNumbersOf3(display);
+                        FindLeftSide(display);
+                        FindZeroAndMiddle(display);
 
+                    }
+                }
+
+            }
+        }
+
+        private static void FindZeroAndMiddle(Display display)
+        {
+            FindZero(display);
+            FindMiddle(display);
+        }
+
+        private static void FindMiddle(Display display)
+        {
+            var candidates = "abcdefg".ToCharArray();
+            var possible = new List<char>();
+            var number0 = display.AllWires.First(w => w.NumberValue == 0);
+            foreach (var possibleChar in candidates)
+            {
+                var inAll = true;
+                foreach (var six in sixes)
+                {
+                    if (!six.Contains(possibleChar))
+                    {
+                        inAll = false;
+                    }
+                }
+                if (inAll == true)
+                {
+                    possible.Add(possibleChar);
+                }
+            }
+        }
+
+        private static void FindZero(Display display)
+        {
+            if (display.Screen.LeftT is null || display.Screen.LeftB is null)
+            {
+                throw new ArgumentNullException("Tried to find 0 without Left Side");
+            }
+            var sixes = display.AllWires.Where(w => w.StringValue.Length == 6);
+            foreach (var six in sixes)
+            {
+                if (!six.NumberValue.HasValue)
+                {
+                    six.NumberValue = 0;
+                }
+            }
+        }
+
+        private static void FindLeftSide(Display display)
+        {
+            var missingFrom3 = FindMissingFrom3(display);
+            FindTopLeft(display, missingFrom3);
+            FindBotLeft(display, missingFrom3);
+        }
+
+        private static void FindBotLeft(Display display, char[] missingFrom3)
+        {
+            var number5 = display.AllWires.First(w => w.NumberValue == 5).StringValue.ToCharArray();
+            foreach (var c in missingFrom3)
+            {
+                if (number5.Contains(c))
+                {
+                    display.Screen.LeftT = c;
+                }
+            }
+        }
+
+        private static void FindTopLeft(Display display, char[] missingFrom3)
+        {
+            var number2 = display.AllWires.First(w => w.NumberValue == 2).StringValue.ToCharArray();
+            foreach (var c in missingFrom3)
+            {
+                if (number2.Contains(c))
+                {
+                    display.Screen.LeftB = c;
+                }
+            }
+        }
+
+        private static char[] FindMissingFrom3(Display display)
+        {
+            var possibleChar = "abcdefg".ToCharArray();
+            var number3 = display.AllWires.First(w => w.NumberValue == 3).StringValue.ToCharArray();
+            List<char> missing = new();
+            foreach (var c in possibleChar)
+            {
+                if (!number3.Contains(c))
+                {
+                    missing.Add(c);
+                    if (missing.Count == 2)
+                    {
+                        break;
+                    }
+                }
+            }
+            return missing.ToArray();
+        }
+
+        private static void FindNumbersOf3(Display display)
+        {
+            var numberThrees = display.AllWires.Where(w => w.StringValue.Length == 5 && w.NumberValue is null);
+            foreach (var number in numberThrees)
+            {
+                number.NumberValue = 3;
+            }
+        }
+
+        private static void FindNumbersOf2(Display display)
+        {
+            var fives = display.AllWires.Where(w => w.StringValue.Length == 5);
+            foreach (var five in fives)
+            {
+                if (display.Screen.RightB is null)
+                {
+                    throw new ArgumentNullException("Tried to find 2 without RightB");
+                }
+                if (!five.StringValue.ToCharArray().Contains(display.Screen.RightB.Value))
+                {
+                    five.NumberValue = 2;
+                }
+            }
+        }
+
+        private static void FindNumbersOf6(Display display)
+        {
+            var sixes = display.AllWires.Where(w => w.StringValue.Length == 6);
+            foreach (var six in sixes)
+            {
+                if (display.Screen.RightT is null)
+                {
+                    throw new ArgumentNullException("Tried to find 6 without RightT");
+                }
+                if (!six.StringValue.ToCharArray().Contains(display.Screen.RightT.Value))
+                {
+                    six.NumberValue = 6;
+                }
+            }
+        }
+        private static void FindNumbersOf5(Display display)
+        {
+            var fives = display.AllWires.Where(w => w.StringValue.Length == 5);
+            foreach (var five in fives)
+            {
+                if (display.Screen.RightT is null)
+                {
+                    throw new ArgumentNullException("Tried to find 5 without RightT");
+                }
+                if (!five.StringValue.ToCharArray().Contains(display.Screen.RightT.Value))
+                {
+                    five.NumberValue = 5;
+                }
             }
         }
 
