@@ -17,3 +17,5 @@ Console.WriteLine(HydrothermalVents.CountOverlaps(Inputs.Day5));
 Console.WriteLine(Lanternfish.HowManyFishColumns(Inputs.Day6, 256));
 Console.WriteLine("Fuel needed to align subs horizontally");
 Console.WriteLine(CrabSubs.FuelForOneLine(Inputs.Day7));
+Console.WriteLine("Easy outputs (1,4,7,8) found on display:");
+Console.WriteLine(SevenSegmentDisplay.CountEasyOutputs(Inputs.Day8));
