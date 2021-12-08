@@ -59,19 +59,20 @@ namespace AdventOfCode2021.Code
             var signalDisplays = ParseInput(input);
             FindAll1478(signalDisplays);
             var sum = 0;
+            var OutputList = new List<int>();
             foreach (var display in signalDisplays)
             {
                 FindDisplayNodes(display);
                 if (display.OutputResult is not null)
                 {
-                    sum += display.OutputResult.Value;
+                    OutputList.Add(display.OutputResult.Value);
                 }
                 else
                 {
                     throw new InvalidOperationException("A display number could not be found");
                 }
             }
-            return sum;
+            return OutputList.Sum();
         }
 
         private static void FindDisplayNodes(Display display)
@@ -405,7 +406,7 @@ namespace AdventOfCode2021.Code
                     {
                         disp.InputWires.Add(new()
                         {
-                            StringValue = i
+                            StringValue = String.Concat(i.OrderBy(c => c)),
                         });
                     }
                 }
@@ -416,7 +417,7 @@ namespace AdventOfCode2021.Code
                     {
                         disp.OutputWires.Add(new()
                         {
-                            StringValue = i.Trim()
+                            StringValue = String.Concat(i.Trim().OrderBy(c => c))
                         });
                     }
                 }
@@ -451,10 +452,10 @@ namespace AdventOfCode2021.Code
                 }
                 var sum = 0;
 
-                sum +=OutputWires[0].NumberValue.Value * 1000;
-                sum +=OutputWires[1].NumberValue.Value * 100;
-                sum +=OutputWires[2].NumberValue.Value * 10;
-                sum +=OutputWires[3].NumberValue.Value;
+                sum += OutputWires[0].NumberValue.Value * 1000;
+                sum += OutputWires[1].NumberValue.Value * 100;
+                sum += OutputWires[2].NumberValue.Value * 10;
+                sum += OutputWires[3].NumberValue.Value;
                 return sum;
             }
         }
