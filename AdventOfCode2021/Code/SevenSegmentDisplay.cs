@@ -43,10 +43,22 @@ namespace AdventOfCode2021.Code
         {
             while (!display.Screen.Done)
             {
-
-                if (display.AllWires.Where(w => w.NumberValue == 1 || w.NumberValue == 7).Count() >= 2 && display.Screen.Top is null)
+                if (display.Screen.Top is null)
                 {
-                    FindTop(display);
+                    //only do linq if we have to
+                    if (display.AllWires.Where(w => w.NumberValue == 1 || w.NumberValue == 7).Count() >= 2)
+                    {
+                        FindTop(display);
+                    }
+                }
+
+                if (display.Screen.RightB is null)
+                {
+                    if (display.HasAll6sAnd1)
+                    {
+
+                    }
+
                 }
 
             }
@@ -60,7 +72,6 @@ namespace AdventOfCode2021.Code
             {
                 if (!one.Contains(c))
                 {
-
                     display.Screen.Top = c;
                 }
             }
@@ -159,6 +170,20 @@ namespace AdventOfCode2021.Code
         }
         public Screen Screen { get; set; } = new();
         public int? OutputResult { get; internal set; }
+        public bool HasAll6sAnd1
+        {
+            get
+            {
+                if (AllWires.Where(w => w.StringValue.Length == 6).DistinctBy(w=>w.StringValue).Count() == 3)
+                {
+                    if (AllWires.Where(w=>w.NumberValue == 1).Any())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
     }
 
     public class Screen
