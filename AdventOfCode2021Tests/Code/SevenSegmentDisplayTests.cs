@@ -44,12 +44,14 @@ egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg | gbdfcae bgc cg cgb
 gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce";
             var res = SevenSegmentDisplay.GetSumOfOutputs(input);
             res.Should().Be(61229);
-        }[TestMethod()]
-        public void GetSumOfSimpleOutputsTest()
+        }
+        [DataTestMethod()]
+        [DataRow("fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega | efabcd cedba gadfec cb", 9361)]
+        [DataRow("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf", 5353)]
+        public void GetSumOfSimpleOutputsTest(string input, int output)
         {
-            var input = @"acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf";
             var res = SevenSegmentDisplay.GetSumOfOutputs(input);
-            res.Should().Be(5353);
+            res.Should().Be(output);
         }
     }
 }

@@ -169,17 +169,17 @@ namespace AdventOfCode2021.Code
 
         private static void FindZero(Display display)
         {
-            if (display.Screen.LeftT is null || display.Screen.LeftB is null)
+            if (display.Screen.RightT is null || display.Screen.LeftB is null)
             {
                 throw new ArgumentNullException("Tried to find 0 without Left Side");
             }
             var sixes = display.AllWires.Where(w => w.StringValue.Length == 6);
-            var leftSide = new char[2];
-            leftSide[0] = display.Screen.LeftB.Value;
-            leftSide[1] = display.Screen.LeftT.Value;
+            var nonZeroPositions = new char[2];
+            nonZeroPositions[0] = display.Screen.LeftB.Value;
+            nonZeroPositions[1] = display.Screen.RightT.Value;
             foreach (var six in sixes)
             {
-                if (six.StringValue.ToCharArray().Contains(leftSide[0]) && six.StringValue.ToCharArray().Contains(leftSide[1]))
+                if (six.StringValue.ToCharArray().Contains(nonZeroPositions[0]) && six.StringValue.ToCharArray().Contains(nonZeroPositions[1]))
                 {
                     six.NumberValue = 0;
                 }
