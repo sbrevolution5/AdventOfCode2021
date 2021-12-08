@@ -107,10 +107,41 @@ namespace AdventOfCode2021.Code
                         FindNumbersOf3(display);
                         FindLeftSide(display);
                         FindZeroAndMiddle(display);
-
+                        FindNumbersOf9(display);
+                        FindBottom(display);
                     }
                 }
 
+            }
+        }
+
+        private static void FindNumbersOf9(Display display)
+        {
+            foreach (var wire in display.AllWires)
+            {
+                if (wire.NumberValue is null)
+                {
+                    wire.NumberValue = 9;
+                }
+            }
+        }
+
+        private static void FindBottom(Display display)
+        {
+            var candidates = "abcdefg".ToCharArray();
+            var foundValues = new char[6];
+            foundValues[0] = display.Screen.Top.Value;
+            foundValues[1] = display.Screen.Mid.Value;
+            foundValues[2] = display.Screen.RightT.Value;
+            foundValues[3] = display.Screen.RightB.Value;
+            foundValues[4] = display.Screen.LeftT.Value;
+            foundValues[5] = display.Screen.LeftB.Value;
+            foreach (var c in candidates)
+            {
+                if (!foundValues.Contains(c))
+                {
+                    display.Screen.Bot = c;
+                }
             }
         }
 
@@ -124,20 +155,13 @@ namespace AdventOfCode2021.Code
         {
             var candidates = "abcdefg".ToCharArray();
             var possible = new List<char>();
-            var number0 = display.AllWires.First(w => w.NumberValue == 0);
+            var number0 = display.AllWires.First(w => w.NumberValue == 0).StringValue.ToCharArray();
             foreach (var possibleChar in candidates)
             {
-                var inAll = true;
-                foreach (var six in sixes)
+                if (!number0.Contains(possibleChar))
                 {
-                    if (!six.Contains(possibleChar))
-                    {
-                        inAll = false;
-                    }
-                }
-                if (inAll == true)
-                {
-                    possible.Add(possibleChar);
+                    display.Screen.Mid = possibleChar;
+                    return;
                 }
             }
         }
@@ -417,7 +441,23 @@ namespace AdventOfCode2021.Code
             }
         }
         public Screen Screen { get; set; } = new();
-        public int? OutputResult { get; internal set; }
+        public int? OutputResult
+        {
+            get
+            {
+                if (OutputWires.Where(w => w.NumberValue is null).Any())
+                {
+                    return null;
+                }
+                var sum = 0;
+
+                sum +=OutputWires[0].NumberValue.Value * 1000;
+                sum +=OutputWires[1].NumberValue.Value * 100;
+                sum +=OutputWires[2].NumberValue.Value * 10;
+                sum +=OutputWires[3].NumberValue.Value;
+                return sum;
+            }
+        }
         public bool HasAll6sAnd1
         {
             get

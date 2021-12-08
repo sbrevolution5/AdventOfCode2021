@@ -19,3 +19,5 @@ Console.WriteLine("Fuel needed to align subs horizontally");
 Console.WriteLine(CrabSubs.FuelForOneLine(Inputs.Day7));
 Console.WriteLine("Easy outputs (1,4,7,8) found on display:");
 Console.WriteLine(SevenSegmentDisplay.CountEasyOutputs(Inputs.Day8));
+Console.WriteLine("Seven Segment display Sum = ");
+Console.WriteLine(SevenSegmentDisplay.GetSumOfOutputs(Inputs.Day8));
