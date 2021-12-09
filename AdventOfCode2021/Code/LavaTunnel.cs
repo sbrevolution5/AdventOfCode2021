@@ -6,16 +6,34 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2021.Code
 {
-    internal static class LavaTunnel
+    public static class LavaTunnel
     {
         public static int FindSumOfLowRiskLevel(string input)
         {
             var points = ParseInput(input);
-            var lowest = FindLowestPoints(points);
+            var lowest = FindLowestValues(points);
             return lowest.Sum(i => i + 1);
         }
+        public static int Find3LargestBasins(string input)
+        {
+            var points = ParseInput(input);
+            var lowest = FindLowestValues(points);
+            var basins = FindBasinSizes(lowest);
+            var largest3 = basins.OrderByDescending(b=>b).Take(3);
+            var prod = 1;
+            foreach (var b in largest3)
+            {
+                prod *= b;
+            }
+            return prod;
+        }
 
-        private static List<int> FindLowestPoints(List<List<int>> points)
+        private static List<int> FindBasinSizes(List<int> lowest)
+        {
+            
+        }
+
+        private static List<int> FindLowestValues(List<List<int>> points)
         {
             List<int> lowest = new List<int>();
             int[][] arrays = points.Select(a => a.ToArray()).ToArray();
@@ -23,14 +41,34 @@ namespace AdventOfCode2021.Code
             {
                 for (int j = 0; j < arrays[i].Length; j++)
                 {
-                    var low = false;
-                    if (CheckLeft(i, j, arrays) && CheckRight(i, j, arrays) && CheckUp(i, j, arrays) && CheckDown(i, j, arrays))
+                    if (IsLowestNeighbor(arrays, i, j))
                     {
                         lowest.Add(arrays[i][j]);
                     }
                 }
             }
             return lowest;
+        }
+        private static List<Tuple<int,int>> FindLowestPoints(List<List<int>> points)
+        {
+            List<Tuple<int,int>> lowest = new List<Tuple<int,int>>();
+            int[][] arrays = points.Select(a => a.ToArray()).ToArray();
+            for (int i = 0; i < arrays.Length; i++)
+            {
+                for (int j = 0; j < arrays[i].Length; j++)
+                {
+                    if (IsLowestNeighbor(arrays, i, j))
+                    {
+                        lowest.Add(new(i,j));
+                    }
+                }
+            }
+            return lowest;
+        }
+
+        private static bool IsLowestNeighbor(int[][] arrays, int i, int j)
+        {
+            return CheckLeft(i, j, arrays) && CheckRight(i, j, arrays) && CheckUp(i, j, arrays) && CheckDown(i, j, arrays);
         }
 
         private static bool CheckUp(int i, int j, int[][] arr)
@@ -93,4 +131,6 @@ namespace AdventOfCode2021.Code
             return lines.Select(x => x.Trim().ToCharArray().Select(y => int.Parse(char.ToString(y))).ToList()).ToList();
         }
     }
+
+    
 }
