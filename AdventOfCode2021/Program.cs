@@ -23,3 +23,5 @@ Console.WriteLine("Seven Segment display Sum = ");
 Console.WriteLine(SevenSegmentDisplay.GetSumOfOutputs(Inputs.Day8));
 Console.WriteLine("Total Risk Factor for lowest points:");
 Console.WriteLine(LavaTunnel.FindSumOfLowRiskLevel(Inputs.Day9));
+Console.WriteLine("Product of the size of 3 largest lava basins");
+Console.WriteLine(LavaTunnel.Find3LargestBasins(Inputs.Day9));
