@@ -21,3 +21,5 @@ Console.WriteLine("Easy outputs (1,4,7,8) found on display:");
 Console.WriteLine(SevenSegmentDisplay.CountEasyOutputs(Inputs.Day8));
 Console.WriteLine("Seven Segment display Sum = ");
 Console.WriteLine(SevenSegmentDisplay.GetSumOfOutputs(Inputs.Day8));
+Console.WriteLine("Total Risk Factor for lowest points:");
+Console.WriteLine(LavaTunnel.FindSumOfLowRiskLevel(Inputs.Day9));
