@@ -49,7 +49,7 @@ namespace AdventOfCode2021.Code
 
         private static bool CheckDown(int i, int j, int[][] arr)
         {
-            if (i == arr.Length)
+            if (i+1 == arr.Length)
             {
                 return true;
 
@@ -76,7 +76,7 @@ namespace AdventOfCode2021.Code
         }
         private static bool CheckRight(int i, int j, int[][] arr)
         {
-            if (j == arr[i].Length)
+            if (j+1 == arr[i].Length)
             {
                 return true;
 
