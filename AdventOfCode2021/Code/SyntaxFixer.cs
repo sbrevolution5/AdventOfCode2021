@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace AdventOfCode2021.Code
 {
-    internal static class SyntaxFixer
+    public static class SyntaxFixer
     {
         public static int FindSyntaxErrorScore(string input)
         {
-            List<SyntaxLine> syntaxInfo = ParseInput(input);
+            List<SyntaxLine> syntaxLines = ParseInput(input);
             var totalScore = 0;
-            foreach (var line in syntaxInfo)
+            foreach (var line in syntaxLines)
             {
-                totalScore += GetErrorScore(line);
+                line.ErrorScore = GetErrorScore(line);
+                totalScore++;
             }
+            totalScore = syntaxLines.Sum(l => l.ErrorScore);
             return totalScore;
         }
 
@@ -49,14 +51,14 @@ namespace AdventOfCode2021.Code
                         break;
                     case '}':
                         prev = syntax.Pop();
-                        if (prev != '<')
+                        if (prev != '{')
                         {
                             return 1197;
                         }
                         break;
                     case ']':
                         prev = syntax.Pop();
-                        if (prev != '<')
+                        if (prev != '[')
                         {
                             return 57;
                         }
@@ -86,5 +88,6 @@ namespace AdventOfCode2021.Code
     {
         public List<char> Characters { get; set; }
         public bool Corrupted { get; set; }
+        public int ErrorScore { get; set; }
     }
 }

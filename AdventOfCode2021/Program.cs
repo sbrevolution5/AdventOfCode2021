@@ -25,3 +25,5 @@ Console.WriteLine("Total Risk Factor for lowest points:");
 Console.WriteLine(LavaTunnel.FindSumOfLowRiskLevel(Inputs.Day9));
 Console.WriteLine("Product of the size of 3 largest lava basins");
 Console.WriteLine(LavaTunnel.Find3LargestBasins(Inputs.Day9));
+Console.WriteLine("Error score for corrupted syntax lines:");
+Console.WriteLine(SyntaxFixer.FindSyntaxErrorScore(Inputs.Day10));
