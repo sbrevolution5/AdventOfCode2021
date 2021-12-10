@@ -19,10 +19,10 @@ namespace AdventOfCode2021.Code
             totalScore = syntaxLines.Sum(l => l.ErrorScore);
             return totalScore;
         }
-        public static int FindMedianIncompleteScore(string input)
+        public static long FindMedianIncompleteScore(string input)
         {
             List<SyntaxLine> syntaxLines = ParseInput(input);
-            List<int> Scores= new List<int>();
+            List<long> Scores= new List<long>();
             foreach (var line in syntaxLines)
             {
                 line.ErrorScore = GetErrorScore(line);
@@ -32,12 +32,13 @@ namespace AdventOfCode2021.Code
             {
                 Scores.Add(GetIncompleteScore(line));
             }
+            Scores.Sort();
             var c = Scores.Count();
             var half = c / 2;
-            return Scores[half + 1];
+            return Scores[half];
         }
 
-        private static int GetIncompleteScore(SyntaxLine line)
+        private static long GetIncompleteScore(SyntaxLine line)
         {
             Stack<char> syntax = new Stack<char>();
             for (int i = 0; i < line.Characters.Count; i++)
@@ -60,7 +61,7 @@ namespace AdventOfCode2021.Code
                         break;
                 }
             }
-            var incompleteScore = 0;
+            long incompleteScore = 0;
             while (syntax.Count > 0)
             {
                 switch (syntax.Pop())
@@ -81,7 +82,6 @@ namespace AdventOfCode2021.Code
                         incompleteScore *= 5;
                         incompleteScore += 4;
                         break;
-
                 }
             }
             return incompleteScore;
