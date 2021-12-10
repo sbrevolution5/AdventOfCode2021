@@ -39,6 +39,7 @@ namespace AdventOfCode2021.Code
                         prev = syntax.Pop();
                         if (prev != '(')
                         {
+                            line.Corrupted = true;
                             return 3;
                         }
                         break;
@@ -46,6 +47,7 @@ namespace AdventOfCode2021.Code
                         prev = syntax.Pop();
                         if (prev != '<')
                         {
+                            line.Corrupted = true;
                             return 25137;
                         }
                         break;
@@ -53,6 +55,7 @@ namespace AdventOfCode2021.Code
                         prev = syntax.Pop();
                         if (prev != '{')
                         {
+                            line.Corrupted = true;
                             return 1197;
                         }
                         break;
@@ -60,6 +63,7 @@ namespace AdventOfCode2021.Code
                         prev = syntax.Pop();
                         if (prev != '[')
                         {
+                            line.Corrupted = true;
                             return 57;
                         }
                         break;
