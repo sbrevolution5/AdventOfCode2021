@@ -24,7 +24,7 @@ namespace AdventOfCode2020.Services
 
         private static bool ValidatePart2(Password password)
         {
-            return password.PasswordString[password.Min]== password.KeyChar|| password.PasswordString[password.Max] == password.KeyChar;
+            return password.PasswordString[password.Min-1]== password.KeyChar ^ password.PasswordString[password.Max-1] == password.KeyChar;
         }
 
         private static bool Validate(Password password)
