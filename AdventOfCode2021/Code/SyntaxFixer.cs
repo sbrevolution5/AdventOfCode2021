@@ -15,12 +15,20 @@ namespace AdventOfCode2021.Code
             foreach (var line in syntaxLines)
             {
                 line.ErrorScore = GetErrorScore(line);
-                totalScore++;
             }
             totalScore = syntaxLines.Sum(l => l.ErrorScore);
             return totalScore;
         }
+        public static int FindMedianIncompleteScore(string input)
+        {
+            List<SyntaxLine> syntaxLines = ParseInput(input);
+            List<int> Scores= new List<int>();
+            foreach (var line in syntaxLines)
+            {
+                line.ErrorScore = GetErrorScore(line);
 
+            }
+        }
         private static int GetErrorScore(SyntaxLine line)
         {
             Stack<char> syntax = new Stack<char>();
