@@ -28,5 +28,21 @@ namespace AdventOfCode2021.Code.Tests
             var res = SyntaxFixer.FindSyntaxErrorScore(input);
             res.Should().Be(26397);
         }
+        [TestMethod()]
+        public void FindMedianIncompleteScoreTest()
+        {
+            var input = @"[({(<(())[]>[[{[]{<()<>>
+[(()[<>])]({[<{<<[]>>(
+{([(<{}[<>[]}>{[]{[(<()>
+(((({<>}<{<{<>}{[]{[]{}
+[[<[([]))<([[{}[[()]]]
+[{[{({}]{}}([{[{{{}}([]
+{<[[]]>}<{[{[{[]{()[[[]
+[<(<(<(<{}))><([]([]()
+<{([([[(<>()){}]>(<<{{
+<{([{{}}[<[[[<>{}]]]>[]]";
+            var res = SyntaxFixer.FindMedianIncompleteScore(input);
+            res.Should().Be(288957);
+        }
     }
 }

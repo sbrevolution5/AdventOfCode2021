@@ -26,9 +26,67 @@ namespace AdventOfCode2021.Code
             foreach (var line in syntaxLines)
             {
                 line.ErrorScore = GetErrorScore(line);
-
             }
+            List<SyntaxLine> incompleteLines = syntaxLines.Where(s => !s.Corrupted).ToList();
+            foreach (var line in incompleteLines)
+            {
+                Scores.Add(GetIncompleteScore(line));
+            }
+            var c = Scores.Count();
+            var half = c / 2;
+            return Scores[half + 1];
         }
+
+        private static int GetIncompleteScore(SyntaxLine line)
+        {
+            Stack<char> syntax = new Stack<char>();
+            for (int i = 0; i < line.Characters.Count; i++)
+            {
+                switch (line.Characters[i])
+                {
+                    case '(':
+                    case '{':
+                    case '[':
+                    case '<':
+                        syntax.Push(line.Characters[i]);
+                        break;
+                    case ')':
+                    case '>':
+                    case '}':
+                    case ']':
+                        syntax.Pop();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            var incompleteScore = 0;
+            while (syntax.Count > 0)
+            {
+                switch (syntax.Pop())
+                {
+                    case '(':
+                        incompleteScore *= 5;
+                        incompleteScore++;
+                        break;
+                    case '[':
+                        incompleteScore *= 5;
+                        incompleteScore += 2;
+                        break;
+                    case '{':
+                        incompleteScore *= 5;
+                        incompleteScore += 3;
+                        break;
+                    case '<':
+                        incompleteScore *= 5;
+                        incompleteScore += 4;
+                        break;
+
+                }
+            }
+            return incompleteScore;
+        }
+
         private static int GetErrorScore(SyntaxLine line)
         {
             Stack<char> syntax = new Stack<char>();

@@ -27,3 +27,5 @@ Console.WriteLine("Product of the size of 3 largest lava basins");
 Console.WriteLine(LavaTunnel.Find3LargestBasins(Inputs.Day9));
 Console.WriteLine("Error score for corrupted syntax lines:");
 Console.WriteLine(SyntaxFixer.FindSyntaxErrorScore(Inputs.Day10));
+Console.WriteLine("Median Error score for incomplete syntax lines:");
+Console.WriteLine(SyntaxFixer.FindMedianIncompleteScore(Inputs.Day10));
