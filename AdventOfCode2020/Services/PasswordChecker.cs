@@ -14,12 +14,17 @@ namespace AdventOfCode2020.Services
             var count = 0;
             foreach (var password in passwords)
             {
-                if (Validate(password))
+                if (ValidatePart2(password))
                 {
                     count++;
                 }
             }
             return count;
+        }
+
+        private static bool ValidatePart2(Password password)
+        {
+            return password.PasswordString[password.Min]== password.KeyChar|| password.PasswordString[password.Max] == password.KeyChar;
         }
 
         private static bool Validate(Password password)
