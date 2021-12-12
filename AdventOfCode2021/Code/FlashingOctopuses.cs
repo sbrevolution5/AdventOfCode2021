@@ -18,6 +18,18 @@ namespace AdventOfCode2021.Code
             }
             return count;
         }
+        public static int WhenIsFirstSyncedFlash(string input)
+        {
+            Octo[,] octos = parseInput(input);
+            for (int step = 0; step < 500; step++)
+            {
+                if (PerformStep(octos) == 100)
+                {
+                    return step+1;
+                }
+            }
+            return 0;
+        }
 
         private static int PerformStep(Octo[,] octos)
         {
