@@ -29,3 +29,5 @@ Console.WriteLine("Error score for corrupted syntax lines:");
 Console.WriteLine(SyntaxFixer.FindSyntaxErrorScore(Inputs.Day10));
 Console.WriteLine("Median Error score for incomplete syntax lines:");
 Console.WriteLine(SyntaxFixer.FindMedianIncompleteScore(Inputs.Day10));
+Console.WriteLine("Number of flashes in 100 simulated octosteps:");
+Console.WriteLine(FlashingOctopuses.HowManyFlashesAfter100(Inputs.Day11));
