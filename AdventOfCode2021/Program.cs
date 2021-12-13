@@ -33,3 +33,7 @@ Console.WriteLine("Number of flashes in 100 simulated octosteps:");
 Console.WriteLine(FlashingOctopuses.HowManyFlashesAfter100(Inputs.Day11));
 Console.WriteLine("First synchronous octostep:");
 Console.WriteLine(FlashingOctopuses.WhenIsFirstSyncedFlash(Inputs.Day11));
+Console.WriteLine("Visible points after first fold");
+Console.WriteLine(Origami.HowManyDotsAfter1Fold(Inputs.Day13));
+Console.WriteLine("Final Origami Point Result");
+Origami.PrintCapitalResult(Inputs.Day13);
