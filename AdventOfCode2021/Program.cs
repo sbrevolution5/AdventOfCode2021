@@ -39,3 +39,7 @@ Console.WriteLine("Visible points after first fold");
 Console.WriteLine(Origami.HowManyDotsAfter1Fold(Inputs.Day13));
 Console.WriteLine("Final Origami Point Result");
 Origami.PrintCapitalResult(Inputs.Day13);
+Console.WriteLine("Difference in polymer elements after 10:");
+Console.WriteLine(Polymers.DifferenceInMostAndLeastCommon(Inputs.Day14));
+Console.WriteLine("Difference In polymer elements after 40:");
+Console.WriteLine(LongPolymers.GetDifferenceAfter40Steps(Inputs.Day14));

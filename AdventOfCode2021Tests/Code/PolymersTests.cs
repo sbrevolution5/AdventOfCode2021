@@ -13,12 +13,12 @@ namespace AdventOfCode2021.Code.Tests
     public class PolymersTests
     {
         [DataTestMethod()]
-        [DataRow(1,7)]
-        [DataRow(2,13)]
-        [DataRow(3,25)]
-        [DataRow(4,49)]
-        [DataRow(5,97)]
-        [DataRow(10,3073)]
+        [DataRow(1, 7)]
+        [DataRow(2, 13)]
+        [DataRow(3, 25)]
+        [DataRow(4, 49)]
+        [DataRow(5, 97)]
+        [DataRow(10, 3073)]
         public void TestProperLength(int steps, int expected)
         {
             var input = @"NNCB
@@ -103,5 +103,30 @@ NN -> B";
             var res = Polymers.DifferenceInMostAndLeastCommon(input);
             res.Should().Be(3);
         }
+
+//        [TestMethod()]
+//        public void DifferenceInMostAndLeastCommonLongTest()
+//        {
+//            var input = @"NNCB
+
+//CH -> B
+//HH -> N
+//CB -> H
+//NH -> C
+//HB -> C
+//HC -> B
+//HN -> C
+//NN -> C
+//BH -> H
+//NC -> B
+//NB -> B
+//BN -> B
+//BB -> N
+//BC -> B
+//CC -> N
+//CN -> C";
+//            var res = Polymers.DifferenceInMostAndLeastCommonLong(input);
+//            res.Should().Be(2188189693529);
+//        }
     }
 }

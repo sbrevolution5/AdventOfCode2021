@@ -46,7 +46,26 @@ namespace AdventOfCode2021.Code
             int least = LeastCommonElement(res);
             return most - least;
         }
+        public static long DifferenceInMostAndLeastCommonLong(string input)
+        {
+            string template = GetPolymerTemplate(input);
+            List<PolymerRule> rules = GetRules(input);
+            string res = "";
+            for (int i = 0; i < 40; i++)
+            {
+                res = PerformStep(template, rules);
+                template = res;
+            }
+            long most = MostCommonElementLong(res);
+            long least = LeastCommonElementLong(res);
+            return most - least;
+        }
 
+        private static long LeastCommonElementLong(string res)
+        {
+            var grp = res.GroupBy(c => c);
+            return grp.Select(c => c.Count()).Min();
+        }
         private static int LeastCommonElement(string res)
         {
             var grp = res.GroupBy(c => c);
@@ -54,6 +73,11 @@ namespace AdventOfCode2021.Code
         }
 
         private static int MostCommonElement(string res)
+        {
+            var grp = res.GroupBy(c => c);
+            return grp.Select(c => c.Count()).Max();
+        }
+        private static long MostCommonElementLong(string res)
         {
             var grp = res.GroupBy(c => c);
             return grp.Select(c => c.Count()).Max();
