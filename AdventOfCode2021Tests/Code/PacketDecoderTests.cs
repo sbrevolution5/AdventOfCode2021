@@ -18,6 +18,8 @@ namespace AdventOfCode2021.Code.Tests
         [DataRow("C0015000016115A2E0802F182340", 23)]
         [DataRow("A0016C880162017C3686B18A3D4780", 31)]
         [DataRow("D2FE28",6)]
+        [DataRow("38006F45291200", 9)]
+        [DataRow("EE00D40C823060",7+2+4+1)]
         public void GetSumOfVersionNumbersTest(string input, int expected)
         {
             var res = PacketDecoder.GetSumOfVersionNumbers(input);
