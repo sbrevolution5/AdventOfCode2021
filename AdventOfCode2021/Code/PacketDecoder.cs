@@ -12,31 +12,46 @@ namespace AdventOfCode2021.Code
         {
             var bits = TranslateToByteString(input);
             //Check main packet for type, if its operator, we need to find the sub packets
-            //if it isn't, just get the version number and return
-            
-            //Determine packet hierarchy
-            Packet packet = new Packet();
-            packet.PacketData = bits;
-            //Find packet type
-            if (!packet.IsLiteral)
+            bool pType = IsPacketLiteral(bits);
+            var packetList = new List<Packet>();
+            if (!pType)
             {
-                List<Packet> subpackets = SplitOperatorPacket(packet);
+                packetList.AddRange(SplitOperatorPacket(bits));
             }
-            //find version number of each packet
-            FindVersionNumber(packet);
-            //add version numbers together
-            GetPacketValue(packet);
-            throw new NotImplementedException();
+            //if it isn't, just get the version number and return
+            else
+            {
+                return GetPacketVersion(bits);
+            }
+            var versions = packetList.Select(p => p.PacketVersion);
+            return versions.Sum();
         }
 
-        private static List<Packet> SplitOperatorPacket(Packet packet)
+        private static int GetPacketVersion(string bits)
+        {
+            var version = bits.Substring(0, 3);
+            return Convert.ToInt32(version, 2);
+        }
+
+        private static bool IsPacketLiteral(string bits)
+        {
+            var type = bits.Substring(3, 3);
+            if (type == "100")//4
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static List<Packet> SplitOperatorPacket(string packet)
         {
             throw new NotImplementedException();
         }
 
         private static void FindVersionNumber(Packet packet)
         {
-            
+
         }
 
         private static string TranslateToByteString(string input)
