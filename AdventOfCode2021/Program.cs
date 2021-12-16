@@ -49,3 +49,5 @@ Console.WriteLine(RiskyPath.LeastRiskyValue(Inputs.Day15));
 Console.WriteLine("Shortest risk value in entire cave");
 Console.WriteLine("***** SKIPPED FOR TIME ******");
 //Console.WriteLine(RiskyPath.LeastRiskyValueBigCave(Inputs.Day15));
+Console.WriteLine("Version Number Sum");
+Console.WriteLine(SecondPacketDecoder.GetVersionSum(Inputs.Day16));

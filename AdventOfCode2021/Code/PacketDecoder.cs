@@ -190,17 +190,5 @@ namespace AdventOfCode2021.Code
             return binarystring;
         }
     }
-    internal class Packet
-    {
-        public bool IsLiteral { get; set; }
-        public int PacketVersion { get; set; }
-        public string PacketData { get; set; }
-        public bool IsSubPacketNumber { get; set; }
-        public int LengthNumber { get; set; }
-        public string PacketLengthData { get; set; }
-        public int PacketStringLength { get; set; }
-        public int? Value { get; set; }
-        public List<Packet> SubPacketList { get; set; } = new List<Packet>();
-
-    }
+    
 }
