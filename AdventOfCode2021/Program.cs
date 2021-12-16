@@ -51,3 +51,5 @@ Console.WriteLine("***** SKIPPED FOR TIME ******");
 //Console.WriteLine(RiskyPath.LeastRiskyValueBigCave(Inputs.Day15));
 Console.WriteLine("Version Number Sum");
 Console.WriteLine(SecondPacketDecoder.GetVersionSum(Inputs.Day16));
+Console.WriteLine("BITS operation result");
+Console.WriteLine(SecondPacketDecoder.GetOperationResult(Inputs.Day16));

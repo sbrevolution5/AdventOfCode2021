@@ -8,11 +8,138 @@ namespace AdventOfCode2021.Code
 {
     public static class SecondPacketDecoder
     {
-        public static int GetOperationResult(string input)
+        public static long GetOperationResult(string input)
         {
-            var packets = DecodeAllPackets(input);
-
+            var bytes = TranslateToByteString(input);
+            var packets = DecodeTopPacket(bytes);
+            return PerformOps(packets.First());
         }
+
+        private static long PerformOps(Packet packet)
+        {
+            switch (packet.TypeId)
+            {
+                case 0:
+                    return SumOfChildren(packet);
+                    break;
+                case 1:
+                    return ProductOfChildren(packet); 
+                    break;
+                case 2:
+                    return MinOfChildren(packet);
+                    break;
+                case 3:
+                    return MaxOfChildren(packet);
+                    break;
+                case 4:
+                    throw new ApplicationException("Error, tried to perform op on 4!");
+                    break;
+                case 5:
+                    return FirstChildGreater(packet);
+                    break;
+                case 6:
+                    return FirstChildLess(packet);
+                    break;
+                case 7:
+                    return ChildrenEqual(packet);
+                    break;
+
+                default:
+                    throw new ApplicationException("Found bad Op ID");
+                    break;
+            }
+        }
+
+        private static long ChildrenEqual(Packet packet)
+        {
+            var ints = new List<long>();
+            ChildOps(packet, ints);
+            if (ints[0] == ints[1])
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private static long FirstChildLess(Packet packet)
+        {
+            var ints = new List<long>();
+            ChildOps(packet, ints);
+            if (ints[0] < ints[1])
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private static long FirstChildGreater(Packet packet)
+        {
+            var ints = new List<long>();
+            ChildOps(packet, ints);
+            if (ints[0] > ints[1])
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private static long MaxOfChildren(Packet packet)
+        {
+            var ints = new List<long>();
+            ChildOps(packet, ints);
+            return ints.Max();
+        }
+
+        private static long MinOfChildren(Packet packet)
+        {
+            var ints = new List<long>();
+            ChildOps(packet, ints);
+            return ints.Min();
+        }
+
+        private static long ProductOfChildren(Packet packet)
+        {
+            var ints = new List<long>();
+            ChildOps(packet, ints);
+            long prod = 1;
+            foreach (var i in ints)
+            {
+                prod *= i;
+            }
+            return prod;
+        }
+
+        private static long SumOfChildren(Packet packet)
+        {
+            var ints = new List<long>();
+            ChildOps(packet, ints);
+            return ints.Sum();
+        }
+
+        private static void ChildOps(Packet packet, List<long> ints)
+        {
+            foreach (var p in packet.SubPacketList)
+            {
+                if (p.IsLiteral)
+                {
+                    ints.Add(p.Value.Value);
+                }
+                else
+                {
+                    ints.Add(PerformOps(p));
+                }
+            }
+        }
+
         public static int GetVersionSum(string input)
         {
             var packets = DecodeAllPackets(input);
